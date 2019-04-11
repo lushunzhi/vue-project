@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue组件</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--同一个页面复用同一个组件-->
+    <you-component></you-component>
+    <you-component></you-component>
+    <you-component></you-component>
+    <you-component></you-component>
+</div>
+<!--
+     说明：组件是vue的又一个核心
+
+     1.引入vue.js
+     2.创建自定义的标签  <my-component></my-component>
+     3.使用Vue对象中的component函数，指定自定义函数名，该函数的声明要在new Vue()前不然报错
+     4.使用template属性给自定义标签赋值
+
+     (template中的内容要带标签哦)
+     -->
+<script>
+
+    Vue.component("you-component",{
+        template:"<button @click='count++'>{{count}}</button>",
+        data:function () {
+            return {
+                count:0
+            };
+        }
+    });
+
+    <!--创建vue对象-->
+    new Vue({
+        el: '#app',  // # 代表通过id绑定   在vue中绑定之后，就相当于html挂载了Vue对象(实例)
+    });
+</script>
+</body>
+</html>

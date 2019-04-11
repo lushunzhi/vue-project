@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue赋值</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>{{msg}}</h1>
+</div>
+<!--
+     说明：
+     {{}}  是最基本的赋值方法，vue中是mvvm双向绑定数据模式
+     双向绑定数据的理解：
+           博客：https://www.cnblogs.com/zhuzhenwei918/p/7309604.html
+           廖雪峰：https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/00147574857851718682c42639f466a934ad9d4f485d1f2000
+     -->
+<script>
+    <!--创建vue对象-->
+    new Vue({
+        el:'#app',  // # 代表通过id绑定   在vue中绑定之后，就相当于html挂载了Vue对象(实例)
+        data:{
+          msg:"你好"
+        }
+    })
+</script>
+</body>
+</html>

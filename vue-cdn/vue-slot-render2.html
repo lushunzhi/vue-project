@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue render实现锚点效果</title>
+</head>
+<body>
+<div id="app">
+    <div style="position: fixed;width: 20%;height: 100%;text-align: center">
+        <child-component :level="1" title="特性1">特性1</child-component>
+        <child-component :level="2" title="特性2">特性2</child-component>
+        <child-component :level="3" title="特性3">特性3</child-component>
+        <child-component :level="4" title="特性4">特性4</child-component>
+        <child-component :level="5" title="特性5">特性5</child-component>
+    </div>
+
+    <div style="width: 80%;float: right">
+        <div style="height: 600px;width: 100%;background: hotpink;font-size: 40px" id="特性1">特性1</div>
+        <div style="height: 600px;width: 100%;background: darkmagenta;font-size: 40px" id="特性2">特性2</div>
+        <div style="height: 600px;width: 100%;background: sandybrown;font-size: 40px" id="特性3">特性3</div>
+        <div style="height: 600px;width: 100%;background: slateblue;font-size: 40px" id="特性4">特性4</div>
+        <div style="height: 600px;width: 100%;background: springgreen;font-size: 40px" id="特性5">特性5</div>
+    </div>
+</div>
+<!--
+     说明：
+     使用render之后，看看发生的变化，节省了html代码
+
+     细心的小伙伴会发现：
+     原本在html中的h标签，换成js中：
+        1."h" + this.level的形式（level上文中最大是5）
+        2.标签中包含关系变成了===》：createElement(标签名,[createElement(标签名,[])])，标签中的属性赋值也换成了js形式
+        3.自然还有更多的属性，id,样式，绑定事件都可以实现
+          参数说明：https://cn.vuejs.org/v2/guide/render-function.html#createElement-%E5%8F%82%E6%95%B0
+
+        （可以输出render函数中的this看看）
+ -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+    Vue.component("child-component", {
+        template: "#child-component",
+        props: {
+            level: {
+                type: Number,
+                require: true
+            },
+            title: {
+                type: String,
+                require: ""
+            }
+        },
+        render:function (createElement) {
+            return createElement(
+                "h" + this.level,
+                [
+                    createElement(
+                        "a",
+                        {
+                            domProps: {
+                                href: "#" + this.title
+                            }
+                        },
+                        this.$slots.default   // 等价于undefined，父组件中没有定义slot
+                    )
+                ]
+            );
+        }
+    });
+
+    <!--创建vue对象-->
+    new Vue({
+        el: '#app',  // # 代表通过id绑定   在vue中绑定之后，就相当于html挂载了Vue对象(实例)
+    });
+
+</script>
+</body>
+</html>

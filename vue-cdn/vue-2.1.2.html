@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue生命周期钩子</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+</div>
+<!--类似jq引入方式
+     方式一：指定vue最新的稳定版本Vue.js
+     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+     方式二：指定某个具体的版本的Vue.js
+     <script src="https://unpkg.com/vue@2.1.6/vue/dist/vue.min.js"></script>
+
+     功能说明：
+     一个人的出生到死亡，虽然很短暂，但是生和死的过程中，我们可以做很多的事情，当我们创建了一个vue对象（new vue()）,他的一生中做了什么？
+     生命周期：
+     项目路径图(英文版)：vue-cdn/images/lifecycle.png   对应的解释图：vue-cdn/images/lifecycle-descrip.png
+     中文版：https://www.jianshu.com/p/d61f55da98fb
+     生命周期文字描述项目路径图：vue-cdn/images/lifecycle-Chinese.png
+
+     更多指令：https://cn.vuejs.org/v2/api/
+     -->
+<script>
+    <!--创建vue对象-->
+    new Vue({
+        el:'#app',  // # 代表通过id绑定   在vue中绑定之后，就相当于html挂载了Vue对象(实例)
+        data:{
+          a:2
+        },
+        created:function () {
+            console.log("输出：" + this.a);
+        },
+        mounted: function () {
+            console.log(this.$el);   // this指new Vue（）这个对象，$el是Vue中指定的方法属性，对象调用时有$作为前缀；
+                                     // 如果将此输出放在create()函数中，出现undefined，因为Vue生命周期图知道加载create之后，才加载$前缀的方法和属性
+            console.log(this);   // 浏览器可以显示出vue对象中的方法和属性
+        }
+    })
+</script>
+</body>
+</html>

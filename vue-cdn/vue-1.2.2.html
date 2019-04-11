@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>初试vue.js</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="book in books">{{ book.name }}</li>
+    </ul>
+</div>
+<!--类似jq引入方式
+     方式一：指定vue最新的稳定版本Vue.js
+     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+     方式二：指定某个具体的版本的Vue.js
+     <script src="https://unpkg.com/vue@2.1.6/vue/dist/vue.min.js"></script>
+
+     功能说明：
+     1.引入vue.js的cdn依赖
+     2.创建vue 对象 new Vue({})
+     3.绑定元素el(element)：通过id选择器绑定标签属性
+     4.创建数据data
+     5.创建books数组信息
+     6.使用vue语法： v-for = book in books 循环数组   book是命名，可改变
+     7.对象赋值双括号{{}}
+
+
+     指令:
+     v-for
+
+     更多指令：https://cn.vuejs.org/v2/api/
+     -->
+<script>
+    <!--创建vue对象-->
+    new Vue({
+        el:'#app',  // # 代表通过id绑定， 也可以用  document.getElementById("app") 赋值给el
+        data:{
+            books: [
+                {name:"你好"},
+                {name:"你好世界"},
+                {name:"你好vue"}
+            ]
+        }
+    })
+</script>
+</body>
+</html>

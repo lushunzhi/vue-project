@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue slot实现锚点效果</title>
+</head>
+<body>
+<div id="app">
+    <div style="position: fixed;width: 20%;height: 100%;text-align: center">
+        <child-component :level="1" title="特性1">特性1</child-component>
+        <child-component :level="2" title="特性2">特性2</child-component>
+        <child-component :level="3" title="特性3">特性3</child-component>
+        <child-component :level="4" title="特性4">特性4</child-component>
+        <child-component :level="5" title="特性5">特性5</child-component>
+    </div>
+
+    <script type="text/x-template" id="child-component">
+        <div>
+            <h1 v-if="level === 1">
+                <a :href="'#' + title ">
+                    <slot></slot>
+                </a>
+            </h1>
+            <h2 v-if="level === 2">
+                <a :href="'#' + title ">
+                    <slot></slot>
+                </a>
+            </h2>
+            <h3 v-if="level === 3">
+                <a :href="'#' + title ">
+                    <slot></slot>
+                </a>
+            </h3>
+            <h4 v-if="level === 4">
+                <a :href="'#' + title ">
+                    <slot></slot>
+                </a>
+            </h4>
+            <h5 v-if="level === 5">
+                <a :href="'#' + title ">
+                    <slot></slot>
+                </a>
+            </h5>
+        </div>
+    </script>
+
+    <div style="width: 80%;float: right">
+        <div style="height: 600px;width: 100%;background: hotpink;font-size: 40px" id="特性1">特性1</div>
+        <div style="height: 600px;width: 100%;background: darkmagenta;font-size: 40px" id="特性2">特性2</div>
+        <div style="height: 600px;width: 100%;background: sandybrown;font-size: 40px" id="特性3">特性3</div>
+        <div style="height: 600px;width: 100%;background: slateblue;font-size: 40px" id="特性4">特性4</div>
+        <div style="height: 600px;width: 100%;background: springgreen;font-size: 40px" id="特性5">特性5</div>
+    </div>
+</div>
+<!--
+     说明：
+     在vue-slot.html中我们直接是在template中写html标签，在这里我们抽离出template中的html，
+     但是我们发现，重复的代码很多，改变的只是判断值level等于多少从而选择对应的组件
+ -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+    Vue.component("child-component", {
+        template: "#child-component",
+        props: {
+            level: {
+                type: Number,
+                require: true
+            },
+            title: {
+                type: String,
+                require: ""
+            }
+        }
+    });
+
+    <!--创建vue对象-->
+    new Vue({
+        el: '#app',  // # 代表通过id绑定   在vue中绑定之后，就相当于html挂载了Vue对象(实例)
+    });
+
+</script>
+</body>
+</html>

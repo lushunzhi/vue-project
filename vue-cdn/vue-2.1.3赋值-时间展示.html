@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue赋值</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h4>未格式化：</h4>{{date}}
+    <h4>格式化：</h4>{{date | dateFormat }}
+</div>
+<!--
+     说明：
+     1.给date对象赋值：new Date()
+     2.使用vue生命周期函数mounted
+     3.定时任务setInterval将每秒的时间赋值给vue中的date对象：_this.date =  new Date();
+     4.在浏览器中Console输入：vm.$destroy();可以看到时间停止了！
+     5.浏览器控制台观察知道，销毁对象之前调用了beforeDestroy函数
+
+
+     过滤器的使用：
+     1.告诉vue,使用过滤器，要在vue中加：filters:{}声明
+     2.filters里创建你要使用的处理逻辑的函数dateFormat:function(){}
+     3.在要处理的数据{{date}}加上’|‘管道符,后接处理的逻辑函数dateFormat 变为{{date | dateFormat }}即可
+     -->
+<script>
+    <!--创建vue对象-->
+   let vm = new Vue({
+        el:'#app',  // # 代表通过id绑定   在vue中绑定之后，就相当于html挂载了Vue对象(实例)
+        data:{
+            date: new Date()
+        },
+       filters:{ //过滤器使用
+           //   时间格式化
+           dateFormat:function(time) {
+               var date=new Date(time);
+               var year=date.getFullYear();
+               /* 在日期格式中，月份是从0开始的，因此要加0
+                * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+                * */
+               var month= date.getMonth()+1<10 ? "0"+(date.getMonth()+1) : date.getMonth()+1;
+               var day=date.getDate()<10 ? "0"+date.getDate() : date.getDate();
+               var hours=date.getHours()<10 ? "0"+date.getHours() : date.getHours();
+               var minutes=date.getMinutes()<10 ? "0"+date.getMinutes() : date.getMinutes();
+               var seconds=date.getSeconds()<10 ? "0"+date.getSeconds() : date.getSeconds();
+               // 拼接
+               return year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
+           }
+       },
+        mounted:function () {
+            let _this = this;
+            _this.timer = setInterval(function () {
+                _this.date =  new Date();
+            },1000);
+        },
+        beforeDestroy:function () {   // 在vue实例销毁前，清除时间对象
+            if (this.timer) {
+                clearInterval(this.timer);
+            }
+            console.log("销毁前");
+        },
+       destroyed:function () {  // 销毁vue实例
+           console.log("销毁后");
+       }
+    })
+
+</script>
+</body>
+</html>

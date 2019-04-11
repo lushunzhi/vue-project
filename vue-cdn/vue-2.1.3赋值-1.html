@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue赋值-请求数据-循环加载数据</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<table id="app" >
+    <tr>
+        <th>创建者</th>
+        <th>活动名称</th>
+        <th>时间</th>
+        <th>人数</th>
+    </tr>
+    <tr v-for="item in items" class="text-center">
+        <td>{{item.nickname}}</td>
+        <td>{{item.playname}}</td>
+        <td>{{item.startDate}}</td>
+        <td>{{item.guestNum}}</td>
+    </tr>
+    <tr v-if="loaded==false">
+        <td colspan="3" class="text-center">正在加载数据......</td>
+    </tr>
+    <tr v-if="loaded==true && items.length==0">
+        <td colspan="3" class="text-center">暂无数据</td>
+    </tr>
+</table>
+<!--
+     说明：
+     {{}}  是最基本的赋值方法，vue中是mvvm双向绑定数据模式
+     双向绑定数据的理解：
+           博客：https://www.cnblogs.com/zhuzhenwei918/p/7309604.html
+           廖雪峰：https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/00147574857851718682c42639f466a934ad9d4f485d1f2000
+
+    注意：vue请求数据的时候需要加载: <script src="https://unpkg.com/axios/dist/axios.min.js"></script>官方推荐
+    1.添加新的js  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    2.创建自己的函数getInfo()，什么时候调用？,并且赋值？
+    3.v-for循环数组。{{}}以对象点属性的方式赋值
+    4.创建Vue的时候，触发getInfo()，赋值，渲染数据
+
+    案列中可以输出json中的数据试试
+     -->
+<script type="text/javascript">
+   const vm =  new Vue({
+        el:"#app",
+        data:{
+            items:[],
+            loaded:false   //设置网速慢的时候看到数据完整效果   images/google网速设置.png  设置好刷新一下
+        },
+         mounted:function(){
+         // 挂载生命函数
+         this.getInfo();
+     },
+     methods:{
+         getInfo:function(){
+             // 请求json/test.json中json数据，实际开发中可以换成后台接口
+             axios.get('json/test.json').then(function(json){
+                 console.log(json);
+                 vm.items=json.data;
+                 vm.loaded=true;
+             },function(){
+                 console.log('请求失败处理');
+             })
+         }
+     }
+    });
+</script>
+</body>
+</html>

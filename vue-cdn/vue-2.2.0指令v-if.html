@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue指令:v-if</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1 v-if="show">显示</h1>
+</div>
+<!--
+     说明：
+     当show的值时true时,“显示”这两个字会在页面上出现
+     当show的值时false时,“显示”这两个字会在页面上消失
+
+     指令:
+     v-if
+
+     和js中的if条件是一样的;
+     前面的v-model,v-for指令已使用过
+
+     更多指令：https://cn.vuejs.org/v2/api/
+     -->
+<script>
+    <!--创建vue对象-->
+    new Vue({
+        el:'#app',  // # 代表通过id绑定   在vue中绑定之后，就相当于html挂载了Vue对象(实例)
+        data:{
+          show:false
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue slot使用</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <child-component>
+        <h2 slot="header">标题</h2>
+        <p>正文内容</p>
+        <p>更多正文内容</p>
+        <div slot="footer">底部信息</div>
+    </child-component>
+</div>
+<!--
+     说明：组件是vue的又一个核心
+
+     1.引入vue.js
+     2.创建自定义的标签  <child-component></child-component>
+     3.使用Vue对象中的component函数，指定自定义函数名，该函数的声明要在new Vue()前不然报错
+     4.使用template属性给自定义标签赋值
+
+     (template中的内容要带标签哦)
+     -->
+
+<!--
+div.container>(div.header>slot[name="header"])+(div.main>slot)+(div.footer>slot[name="footer"])
+以上的语句tab之后，创建出...template中的html
+-->
+<script>
+
+    Vue.component("child-component", {
+        template: "<div class=\"container\">\n" +
+            "    <div class=\"header\">\n" +
+            "        <slot name=\"header\"></slot>\n" +
+            "    </div>\n" +
+            "    <div class=\"main\">\n" +
+            "        <slot></slot>\n" +
+            "    </div>\n" +
+            "    <div class=\"footer\">\n" +
+            "        <slot name=\"footer\"></slot>\n" +
+            "    </div>\n" +
+            "</div>",
+    });
+
+    <!--创建vue对象-->
+    new Vue({
+        el: '#app',  // # 代表通过id绑定   在vue中绑定之后，就相当于html挂载了Vue对象(实例)
+    });
+
+</script>
+
+<!--
+浏览器中F12调试查看节点元素之后输出:
+
+<div class="container">
+    <div class="header">
+        <h2>标题</h2>
+    </div>
+    <div class="main">
+        <p>正文内容</p>
+        <p>更多正文内容</p>
+    </div>
+    <div class="footer">
+        <div>底部信息</div>
+    </div>
+</div>
+
+可以对比: 结构发生了变化
+
+<child-component>
+    <h2 slot="header">标题</h2>
+    <p>正文内容</p>
+    <p>更多正文内容</p>
+    <div slot="footer">底部信息</div>
+</child-component>
+
+1.没有用slot属性的标签<p>，被添加到没有name属性的slot标签里
+-->
+</body>
+</html>

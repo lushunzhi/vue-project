@@ -1,0 +1,23 @@
+[
+  {
+    "id":"1",
+    "playname":"活动1",
+    "startDate":"2019-04-11",
+    "guestNum":2,
+    "nickname":"顺治"
+  },
+  {
+    "id":"2",
+    "playname":"活动2",
+    "startDate":"2019-04-10",
+    "guestNum":20,
+    "nickname":"老铁"
+  },
+  {
+    "id":"3",
+    "playname":"活动3",
+    "startDate":"2019-04-09",
+    "guestNum":20,
+    "nickname":"汗牛"
+  }
+]
