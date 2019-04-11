@@ -1,6 +1,6 @@
 # vue-project
-vue项目的学习
-
+vue-cdn项目的学习：
+引入js的方式
 ## vue.js官网：
 [vue.js官网](https://cn.vuejs.org/v2/api)
 
