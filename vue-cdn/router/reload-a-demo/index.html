@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>a标签实现页面的刷新</title>
+</head>
+<body>
+<!--说明：
+局部刷新功能：只需要将iframe的name属性值和a标签的target属性值设置为一样，即可在页面中点击超链接实现局部刷新。
+
+上面的这个a标签的target指向的是name为myFrameName的iframe，不是用Id来做指向的目标，
+如果target=“myFrameId”的话只有新版的Chrome、opera支持，在IE10，FF中都不生效。
+-->
+<ul>
+    <li><a href="page1.html" target="myFrame">点击1</a></li>
+    <li><a href="page2.html" target="myFrame">点击2</a></li>
+    <li><a href="http://www.baidu.com" target="myFrame">百度一下</a></li>
+</ul>
+<iframe width="600" height="500" name="myFrame">
+</iframe>
+</body>
+</html>
